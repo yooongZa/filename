@@ -1,0 +1,40 @@
+name: Build filename desktop
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'app.py'
+      - 'filename_app/**'
+      - 'filename_bench/**'
+      - 'configs/**'
+      - 'assets/**'
+      - 'scripts/**'
+      - 'tests/test_app*.py'
+      - 'requirements*.txt'
+      - '.github/workflows/desktop.yml'
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-app.txt "pyinstaller>=6,<7"
+      - run: python -m unittest discover -s tests -p "test_app*.py" -v
+      - run: python scripts/build_desktop.py
+      - run: python scripts/smoke_desktop.py dist/filename/filename.exe
+      - name: Zip portable Windows app
+        shell: pwsh
+        run: Compress-Archive -Path dist/filename -DestinationPath dist/filename-windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: filename-windows-x64
+          path: dist/filename-windows-x64.zip
+          retention-days: 30

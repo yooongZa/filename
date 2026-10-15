@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.zip
+data/
+datasets/
+models/
+runs/
+validation/
+configs/*.local.json
+
+# 원본 영상에서 추출한 프레임 캐시
+.filename_frames/
+
+# 로컬 프로그램의 실행 이력과 패키징 결과
+.filename/
+build/
+dist/
+*.spec

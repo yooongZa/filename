@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>filename — 촬영 파일 정리</title><link rel="stylesheet" href="/style.css"></head>
+<body><main>
+<header><div><span class="wordmark">filename<span class="dot">.</span></span><p>사진과 영상에, 찾기 쉬운 이름을.</p></div><div><button id="settings" class="quiet">설정 파일</button><button id="quit" class="quiet">종료</button></div></header>
+<nav aria-label="작업 순서"><span class="active">01 폴더 선택</span><span>02 분석</span><span>03 파일명 검토</span><span>04 변경</span></nav>
+<section class="folder-panel"><label for="folder">정리할 폴더</label><div class="folder-line"><input id="folder" placeholder="폴더를 선택하거나 경로를 붙여넣으세요"><button id="browse">폴더 선택</button><button id="analyze" class="primary">분석 시작 <span>→</span></button></div>
+<div class="options"><label><input type="checkbox" id="review" checked> 변경 전 검토</label><label><input type="checkbox" id="automatic"> 자동 변경</label><span id="modeHint">검토 후 선택한 파일만 변경합니다.</span></div>
+</section>
+<section class="statusbar" aria-live="polite"><div><span id="statusDot" class="status-dot"></span><span id="message">정리할 폴더를 선택하세요.</span></div><span id="counts">Gemma 4 12B QAT · 태그 5개</span><button id="cancel" hidden class="quiet">중단</button></section>
+<div id="error" class="error" role="alert" hidden></div><div id="mock" class="notice" hidden>모의 실행 · 실제 장면 분석과 파일명 변경은 하지 않습니다.</div>
+<section class="review-panel"><div class="review-title"><h1>파일명 검토 <span id="count">0</span></h1><label><input id="selectAll" type="checkbox"> 전체 선택</label></div>
+<div id="empty"><div class="empty-symbol">↗</div><h2>정리할 촬영물을 불러오세요</h2><p>사진은 한 장씩, 영상은 대표 프레임을 분석합니다.<br>기존 이름과 확장자를 보존하고 태그 5개를 붙입니다.</p><code>IMG_001__해변_자전거_도로_라이딩_야외.jpg</code></div>
+<div id="rows"></div></section>
+<footer><button id="undo" class="quiet">변경 이력 되돌리기</button><span id="footerHint">완료한 파일은 다음 분석에서 건너뜁니다.</span><button id="rename" class="primary" disabled>선택한 파일 변경 <span>→</span></button></footer>
+<p class="small" id="configPath"></p>
+</main>
+<dialog id="picker"><div class="dialog-title"><h2>폴더 선택</h2><button id="closePicker" class="quiet">닫기</button></div><div class="folder-line"><button id="upFolder">↑ 상위 폴더</button><input id="pickerPath" aria-label="이동할 폴더 경로"><button id="goFolder">이동</button></div><div id="drives"></div><div id="folderList"></div><button id="chooseFolder" class="primary">이 폴더 선택</button></dialog>
+<script src="/app.js"></script></body></html>

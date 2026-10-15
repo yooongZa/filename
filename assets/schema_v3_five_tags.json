@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "filename tags response (3 fields)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "keywords",
+    "reason",
+    "place_name"
+  ],
+  "properties": {
+    "keywords": {
+      "type": "array",
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 5
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "place_name": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

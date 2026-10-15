@@ -1,0 +1,21 @@
+{
+  "baseline": {
+    "short_edge_px": 720,
+    "vision_token_budget": 280,
+    "frames": "all",
+    "selection": "uniform",
+    "temperature": 0,
+    "max_new_tokens": 512,
+    "context_per_request": 8192,
+    "concurrency": 1
+  },
+  "video_extraction": {
+    "seconds_per_frame": 10,
+    "max_frames": 5,
+    "ffmpeg_path": "ffmpeg",
+    "ffprobe_path": "ffprobe",
+    "timeout_s": 120
+  },
+  "prompt_path": "../../assets/prompt_v3_five_tags.txt",
+  "schema_path": "../../assets/schema_v3_five_tags.json"
+}

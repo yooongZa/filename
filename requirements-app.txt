@@ -1,0 +1,5 @@
+# 기존 전처리와 모델 서버 연결 코드를 재사용합니다.
+-r requirements.txt
+# Windows·Mac 배포판에 FFmpeg 실행 파일을 포함합니다.
+imageio-ffmpeg>=0.6,<0.7
+certifi>=2024.2
