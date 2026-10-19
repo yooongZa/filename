@@ -17,6 +17,8 @@ IMG_001.jpg → IMG_001__해변_자전거_도로_라이딩_야외.jpg
 
 [배포 내역과 체크섬](https://github.com/yooongZa/filename/releases/tag/v0.1.0)
 
+현재 `main`의 기본값은 **R13 · 720p · 비전 토큰 560 · 영상 최대 3프레임**입니다. 아래 검증 결과와 R13 변경은 소스에 반영되어 있으며, 위 v0.1.0 다운로드에는 포함되어 있지 않습니다. R13 실행 파일은 [GitHub Actions의 최신 성공 빌드](https://github.com/yooongZa/filename/actions/workflows/desktop.yml)에서 받거나 직접 빌드할 수 있습니다.
+
 v0.1.0은 개발용 배포본입니다. Mac 앱은 Apple 공증을 받지 않았고, Windows 실행 파일은 배포용 코드 서명이 없습니다. 운영체제의 실행 확인 절차가 나타날 수 있습니다. Intel Mac 실행 파일은 이번 배포에 포함하지 않습니다.
 
 ## 사용 방법
@@ -36,7 +38,7 @@ v0.1.0은 개발용 배포본입니다. Mac 앱은 Apple 공증을 받지 않았
 
 모델은 **Gemma 4 12B QAT · Q4_0**입니다. 지정한 경로와 LM Studio 기본 모델 폴더 등에서 모델·프로젝터를 찾고, 없으면 분석 시작 시 [Google 공식 GGUF](https://huggingface.co/google/gemma-4-12B-it-qat-q4_0-gguf)를 내려받습니다. LM Studio를 실행할 필요는 없습니다.
 
-모델 파일은 ZIP에 포함하지 않습니다. 처음 내려받을 때 인터넷과 약 7.2 GB 이상의 모델 저장 공간이 필요합니다. 실행 엔진도 없으면 준비합니다. 설치 후 이미지·영상 분석은 로컬에서 실행됩니다. Windows 8GB VRAM에서의 실제 추론과 적정 입력량은 추가 확인이 필요합니다.
+모델 파일은 ZIP에 포함하지 않습니다. 처음 내려받을 때 인터넷과 약 7.2 GB 이상의 모델 저장 공간이 필요합니다. 실행 엔진도 없으면 준비합니다. 설치 후 이미지·영상 분석은 로컬에서 실행됩니다. R13은 Windows RTX 3070 8GB에서 사진 20장·영상 20편의 실제 추론과 이름 변경을 확인했습니다. [검증 범위와 결과](docs/R13_VALIDATION.md)를 참고하세요.
 
 ## 설정과 프롬프트
 
@@ -99,7 +101,7 @@ python scripts/smoke_desktop.py dist/filename.app/Contents/MacOS/filename
 python scripts/smoke_desktop.py dist/filename/filename.exe
 ```
 
-v0.1.0은 Mac 실제 모델의 사진·영상 분석, 임시 복사본 이름 변경·건너뛰기·복원, Mac·Windows 패키징 앱의 사진·영상 모의 분석을 확인했습니다. Windows 실제 GPU 추론은 아직 검증하지 않았습니다. 빌드 출처와 파일 해시는 [BUILD_INFO.json](docs/BUILD_INFO.json)에 기록했습니다.
+v0.1.0 배포 당시에는 Mac 실제 모델의 사진·영상 분석, 임시 복사본 이름 변경·건너뛰기·복원, Mac·Windows 패키징 앱의 사진·영상 모의 분석을 확인했습니다. 당시 빌드 출처와 파일 해시는 [BUILD_INFO.json](docs/BUILD_INFO.json)에 기록했습니다. 이후 R13의 Windows 실제 GPU 검증은 [별도 기록](docs/R13_VALIDATION.md)에 정리했습니다.
 
 관련 실험 저장소: [모델 품질·Colab](https://github.com/yooongZa/filename-model-quality-bench), [로컬 실행 성능](https://github.com/yooongZa/filename-local-capacity-bench).
 

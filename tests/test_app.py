@@ -206,8 +206,12 @@ class AppTests(unittest.TestCase):
     def test_profile_used_by_app(self):
         # 독립 앱 저장소에 포함한 설정에서 프롬프트·출력 규칙까지 읽습니다.
         cfg = load_app_config(ROOT / "configs/app.json")
-        self.assertEqual(cfg["baseline"]["max_new_tokens"], 512)
-        self.assertEqual(cfg["baseline"]["frames"], "all")
+        self.assertEqual(cfg["baseline"]["max_new_tokens"], 5000)
+        self.assertEqual(cfg["baseline"]["frames"], 3)
+        self.assertEqual(cfg["baseline"]["short_edge_px"], 720)
+        self.assertEqual(cfg["baseline"]["vision_token_budget"], 560)
+        self.assertEqual(cfg["video_extraction"]["mode"], "nearest_keyframe")
+        self.assertEqual(cfg["video_extraction"]["fractions"], [0.2, 0.5, 0.8])
         self.assertIn("five_tags", cfg["prompt_path"])
         self.assertEqual(cfg["schema"]["properties"]["keywords"]["minItems"], 5)
         self.assertEqual(cfg["schema"]["properties"]["keywords"]["maxItems"], 5)

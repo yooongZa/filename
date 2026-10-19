@@ -30,7 +30,7 @@ Mac 앱은 개발용 ad-hoc 서명이며 Apple 공증은 하지 않았습니다.
 - [llama.cpp 실행 파일](https://github.com/ggml-org/llama.cpp/releases/tag/b11642)
 - 기존 [LM Studio GGUF](https://huggingface.co/lmstudio-community/gemma-4-12B-it-QAT-GGUF)도 같은 폴더의 mmproj와 함께 재사용합니다.
 
-8GB VRAM에서 가능한 입력량·속도는 실제 Windows 장비로 추가 측정해야 합니다. 앱은 한 번에 파일 하나씩 분석하며 선택한 폴더를 처리하는 동안 모델을 재사용합니다.
+R13은 Windows RTX 3070 8GB에서 사진 20장·영상 20편의 실제 추론과 이름 변경을 확인했습니다. 분석 시간은 455.39초, 관측한 GPU 메모리 최대 사용량은 7,175MiB였습니다. 환경별 속도·메모리는 달라질 수 있으며, [검증 기록](R13_VALIDATION.md)에 측정 범위를 정리했습니다. 앱은 한 번에 파일 하나씩 분석하며 선택한 폴더를 처리하는 동안 모델을 재사용합니다.
 
 ## 두 가지 변경 옵션
 
@@ -62,18 +62,19 @@ assets/schema_v3_five_tags.json           # keywords/reason/place_name
 | 설정 | 기본값 | 의미 |
 |---|---|---|
 | `baseline.short_edge_px` | 720 | 입력 이미지의 짧은 변, 원본보다 확대하지 않음 |
-| `baseline.vision_token_budget` | 280 | 이미지 한 장의 시각 토큰 상한 요청 |
-| `baseline.frames` | `all` | 추출 후보 모두 전달; 정수이면 최대 해당 장수 |
+| `baseline.vision_token_budget` | 560 | 이미지 한 장의 시각 토큰 상한 요청 |
+| `baseline.frames` | 3 | 최대 3프레임 전달; 사진은 1장 |
 | `baseline.selection` | `uniform` | `uniform`, `blur`, `dedup`, `both` |
-| `baseline.max_new_tokens` | 512 | 출력 토큰 상한 |
+| `baseline.max_new_tokens` | 5000 | 출력 토큰 상한 |
 | `baseline.context_per_request` | 8192 | 입력·출력 합계 문맥 길이 |
 | `baseline.temperature` | 0 | 생성 무작위성 |
-| `video_extraction.seconds_per_frame` | 10 | 영상 길이당 추출 간격 |
-| `video_extraction.max_frames` | 5 | 영상 한 편의 최대 후보 수 |
+| `video_extraction.mode` | `nearest_keyframe` | 영상 20%·50%·80% 지점의 가까운 키프레임 우선, 부족하면 일반 프레임 보충 |
+| `video_extraction.seconds_per_frame` | 10 | `interval` 모드에서만 사용하는 추출 간격 |
+| `video_extraction.max_frames` | 3 | 영상 한 편의 최대 후보 수 |
 | `recursive` | false | 하위 폴더 포함 여부 |
 | `skip_tagged_names` | true | 이력이 없어도 동일한 5태그 파일명 건너뜀 |
 
-예제 기본값은 최적 성능을 보장하는 값이 아닙니다. A·B 실험으로 고른 profile을 앱에서 사용하세요. 앱은 동시 요청을 1로 제한합니다.
+현재 기본값은 R13입니다. GPU 레이어 38, 엔진 배치·마이크로배치 576, Thinking OFF를 함께 사용합니다. 앱은 동시 요청을 1로 제한합니다. 프레임 선택 방식과 기존 설치 적용 방법은 [설정 안내](CONFIG.md)를 참고하세요.
 
 ## 이미 처리한 파일과 복원
 
@@ -92,7 +93,7 @@ assets/schema_v3_five_tags.json           # keywords/reason/place_name
 ## 개발·검증
 
 ```bash
-python -m unittest discover -s tests -p test_app.py -v
+python -m unittest discover -s tests -v
 python app.py --mock
 python scripts/build_desktop.py
 python scripts/smoke_desktop.py dist/filename/filename.exe

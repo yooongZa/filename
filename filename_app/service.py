@@ -21,6 +21,7 @@ from filename_bench.data import IMAGE_SUFFIXES
 from filename_bench.video import VIDEO_SUFFIXES
 from .files import FolderLock, History, make_name, tagged_name
 from .media import media_input
+from .keyframes import validate_options
 from .runtime import setup
 
 
@@ -66,6 +67,7 @@ def load_app_config(path):
     cfg = read_json(path)
     profile = Path(cfg["profile_path"]).expanduser()
     apply_profile(cfg, profile if profile.is_absolute() else path.parent / profile)
+    validate_options(cfg["video_extraction"])
     settings = cfg["baseline"]
     for key in [
         "short_edge_px",
@@ -290,6 +292,11 @@ class AppService:
                                 )
                             row.update(
                                 raw_output=response["raw_output"],
+                                input_tokens=response.get("input_tokens"),
+                                output_tokens=response.get("output_tokens"),
+                                inference_s=response.get("inference_s"),
+                                reasoning_content_chars=len((response.get("raw_response", {}).get("choices") or [{}])[0].get("message", {}).get("reasoning_content") or ""),
+                                completion_usage=response.get("raw_response", {}).get("usage", {}),
                                 input_meta=meta,
                                 finish_reason=response.get("finish_reason"),
                                 elapsed_s=round(time.perf_counter() - started, 2),

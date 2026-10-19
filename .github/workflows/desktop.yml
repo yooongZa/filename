@@ -10,7 +10,7 @@ on:
       - 'configs/**'
       - 'assets/**'
       - 'scripts/**'
-      - 'tests/test_app*.py'
+      - 'tests/**'
       - 'requirements*.txt'
       - '.github/workflows/desktop.yml'
 permissions:
@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install -r requirements-app.txt "pyinstaller>=6,<7"
-      - run: python -m unittest discover -s tests -p "test_app*.py" -v
+      - run: python -m unittest discover -s tests -v
       - run: python scripts/build_desktop.py
       - run: python scripts/smoke_desktop.py dist/filename/filename.exe
       - name: Zip portable Windows app

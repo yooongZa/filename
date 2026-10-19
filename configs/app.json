@@ -9,11 +9,11 @@
     "model_path": "",
     "mmproj_path": "",
     "model_search_dirs": [],
-    "gpu_layers": 999,
-    "engine_token_batch": 512,
-    "engine_microbatch": 128,
+    "gpu_layers": 38,
+    "engine_token_batch": 576,
+    "engine_microbatch": 576,
     "startup_timeout_s": 240,
-    "request_timeout_s": 180
+    "request_timeout_s": 600
   },
   "review_before_rename": true,
   "auto_rename": false

@@ -185,7 +185,7 @@ class LlamaBackend:
                    "--host", "127.0.0.1", "--port", str(port), "--fit", "off", "--no-context-shift",
                    "-c", str(setting["context_per_request"] * slots), "-np", str(slots),
                    "-ngl", str(self.cfg.get("gpu_layers", 999)), "--slots", "--jinja",
-                   "--chat-template-kwargs", '{"enable_thinking":false}',
+                   "--reasoning", "off", "--reasoning-format", "deepseek",
                    "--image-max-tokens", str(setting["vision_token_budget"]),
                    "-b", str(self.cfg.get("engine_token_batch", 512)),
                    "-ub", str(self.cfg.get("engine_microbatch", 128))]

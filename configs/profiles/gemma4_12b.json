@@ -1,20 +1,28 @@
 {
   "baseline": {
     "short_edge_px": 720,
-    "vision_token_budget": 280,
-    "frames": "all",
+    "vision_token_budget": 560,
+    "frames": 3,
     "selection": "uniform",
     "temperature": 0,
-    "max_new_tokens": 512,
+    "max_new_tokens": 5000,
     "context_per_request": 8192,
     "concurrency": 1
   },
   "video_extraction": {
     "seconds_per_frame": 10,
-    "max_frames": 5,
+    "max_frames": 3,
     "ffmpeg_path": "ffmpeg",
     "ffprobe_path": "ffprobe",
-    "timeout_s": 120
+    "timeout_s": 120,
+    "mode": "nearest_keyframe",
+    "fractions": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "max_keyframe_distance_s": 0.5,
+    "max_keyframe_distance_fraction": 0.05
   },
   "prompt_path": "../../assets/prompt_v3_five_tags.txt",
   "schema_path": "../../assets/schema_v3_five_tags.json"
