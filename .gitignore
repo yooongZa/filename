@@ -23,6 +23,12 @@ runs/
 validation/
 configs/*.local.json
 
+# 사용 설명은 README.md에 모으고 분석 자료는 로컬에 보관합니다.
+docs/
+analysis/
+reports/
+outputs/
+
 # 원본 영상에서 추출한 프레임 캐시
 .filename_frames/
 
